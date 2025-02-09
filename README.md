@@ -60,7 +60,7 @@ Return `400 Bad Request` if you were not able to process the notification.
 
 I'm not actively developing this package, so you're welcome to contribute.
 
-Fell free to create a pull request. Also feel free to add yourself to the contributors list below.
+Feel free to create a pull request. Be sure to add yourself to the contributors list below.
 
 ## Contributors 
 
