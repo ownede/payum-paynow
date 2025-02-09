@@ -6,7 +6,7 @@ This is a basic Paynow.pl payment gateway for [Payum](https://github.com/Payum/P
 
 To install this package, you can use composer:
 ```bash
-composer require payum/paynow ksolutions/payum-paynow
+composer require payum/paynow ksolutionspro/payum-paynow
 ```
 
 ## Usage

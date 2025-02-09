@@ -1,5 +1,5 @@
 {
-    "name": "ksolutions/payum-paynow",
+    "name": "ksolutionspro/payum-paynow",
     "type": "project",
     "description": "Payum support for paynow.pl payment gateway",
     "keywords": ["payment", "payum", "paynow"],
