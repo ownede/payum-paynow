@@ -1,0 +1,34 @@
+{
+    "name": "ksolutions/payum-paynow",
+    "type": "project",
+    "description": "Payum support for paynow.pl payment gateway",
+    "keywords": ["payment", "payum", "paynow"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kacper Smółkowski",
+            "email": "kacper@ksolutions.pro"
+        },
+        {
+            "name": "Payum project",
+            "homepage": "https://payum.forma-pro.com/"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "payum/core": "^1.7.5",
+        "pay-now/paynow-php-sdk": "^2.4"
+    },
+    "require-dev": {
+        "symfony/http-client": "^6.4"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
+    },
+    "autoload": {
+        "psr-4": { "Ksolutions\\PayumPaynow\\": "src/" }
+    }
+}
