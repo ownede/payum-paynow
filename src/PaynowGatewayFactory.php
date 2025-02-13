@@ -9,7 +9,6 @@ use Ksolutions\PayumPaynow\Action\ConvertPaymentAction;
 use Ksolutions\PayumPaynow\Action\NotifyAction;
 use Ksolutions\PayumPaynow\Action\RefundAction;
 use Ksolutions\PayumPaynow\Action\StatusAction;
-use Paynow\Client;
 use Paynow\Environment;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
@@ -19,7 +18,7 @@ class PaynowGatewayFactory extends GatewayFactory
     /**
      * {@inheritDoc}
      */
-    protected function populateConfig(ArrayObject $config)
+    protected function populateConfig(ArrayObject $config): void
     {
         $config->defaults([
             'payum.factory_name' => 'paynow',
@@ -37,6 +36,7 @@ class PaynowGatewayFactory extends GatewayFactory
         if (false == $config['payum.api']) {
             $config['payum.default_options'] = array(
                 'sandbox' => true,
+                'validity_time' => 1200,
             );
             $config->defaults($config['payum.default_options']);
             $config['payum.required_options'] = [
@@ -47,11 +47,17 @@ class PaynowGatewayFactory extends GatewayFactory
             $config['payum.api'] = function (ArrayObject $config) {
                 $config->validateNotEmpty($config['payum.required_options']);
 
-                return new Client(
+                $api = new Api(
                     $config['api_key'],
                     $config['signature_key'],
                     $config['sandbox'] ? Environment::SANDBOX : Environment::PRODUCTION,
                 );
+
+                $api->setAdditionalOptions([
+                    'validityTime' => $config['validity_time'],
+                ]);
+
+                return $api;
             };
         }
     }
