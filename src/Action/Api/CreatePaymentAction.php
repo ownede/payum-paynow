@@ -8,7 +8,6 @@ use Paynow\Exception\PaynowException;
 use Paynow\Response\Payment\Authorize;
 use Paynow\Service\Payment;
 use Payum\Core\ApiAwareTrait;
-use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\LogicException;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\RuntimeException;
@@ -89,7 +88,7 @@ class CreatePaymentAction extends BaseApiAwareAction
 
     private function preparePaymentRequestData(PaymentInterface $payment): array
     {
-        return [
+        $parameters = [
             'amount' => $payment->getTotalAmount(),
             'currency' => $payment->getCurrencyCode(),
             'externalId' => $payment->getNumber(),
@@ -99,6 +98,13 @@ class CreatePaymentAction extends BaseApiAwareAction
                 'email' => $payment->getClientEmail(),
             ]
         ];
+
+        $additionalOptions = $this->api->getAdditionalOptions();
+        if (!empty($additionalOptions)) {
+            $parameters = array_merge($parameters, $additionalOptions);
+        }
+
+        return $parameters;
     }
 
     private function setContinueUrl(TokenInterface $token, PaymentInterface $payment): void
